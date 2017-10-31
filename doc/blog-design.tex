@@ -1,0 +1,109 @@
+% a simple blog design — Quentin Ribac © 2017
+% This is free software; see LICENSE file for more information.
+\documentclass[a4paper, 11pt]{article}
+\usepackage{jipkg}
+\usepackage{tikz-uml}
+
+\jihypersetup{A simple blog design}{Quentin Ribac}
+\title{A simple blog design}
+\author{Quentin \textsc{Ribac}}
+\date{\today}
+
+\begin{document}
+\selectlanguage{english}
+\maketitle
+
+\section{Class Diagram}
+\begin{figure}[h]\label{pkg: blog}\center{
+\begin{tikzpicture}
+	\begin{umlpackage}{blog}
+		% Classes
+		\umlclass[x = 6, y = -9]{User}{
+			isAdmin : bool
+		}{}
+		\umlclass[x = 3, y = -4]{Content}{
+			createdAt : date\\
+			editedAt : date\\
+			title : string\\
+			body : string\\
+			isListed : bool\\
+			isDraft : bool
+		}{}
+		\umlnote[x = 6, y = 0, width = 6cm]{Content}{An unlisted article is still readable. A draft is not and forces isListed to false.}
+		\umlclass[x = 0, y = -3]{Comment}{
+			%
+		}{}
+		\umlclass[x = 6, y = -3]{Article}{
+			tags : string[]
+		}{}
+		\umlclass[x = 12, y = 0]{Category}{
+			name : string[64]\\
+			description : string[512]
+		}{}
+		\umlclass[x = 12, y = -6]{Series}{
+			name : string[64]\\
+			description : string[512]
+		}{}
+
+		% Relations
+		\umlinherit{Article}{Content} % Article is a Content
+		\umlinherit{Comment}{Content} % Comment is a Content
+
+		\umluniassoc[mult1 = *, attr2 = authors|1..*]{Article}{User} % Article has 1+ authors
+		\umlVHuniassoc[mult1 = *, attr2 = author|1]{Comment}{User} % Comment has 1 authors
+
+		\umluniassoc[mult1 = *, mult2 = 1]{Article}{Category} % Article is in 1 Category
+		\umluniassoc[mult1 = *, mult2 = 0..1]{Article}{Series} % Article is in 0 or 1 Series
+	\end{umlpackage}
+\end{tikzpicture}
+\caption{Packgage: \texttt{blog}}
+}\end{figure}
+
+\section{List of Meteor templates}
+\subsection{Components}
+\begin{description}
+	\item[article-body] shows article body
+	\item[article-meta] shows article metadata (authors, category, series, etc.)
+	\item[article-short] shows article for display in feed (small excerpt from the beginning)
+	\item[article-edit] a simple form
+	\item[comment] shows comment
+	\item[comment-edit] a simple form
+	\item[category] shows name, description and number of member articles
+	\item[category-edit] a simple form
+	\item[series] shows name, description, number of member articles
+	\item[series-edit] a simple form
+	\item[user-login-logout] a simple form
+	\item[user-status] shows name of connected user, links to profile
+\end{description}
+
+\subsection{Layouts}
+\begin{description}
+	\item[main] with sidebar
+	\item[plain] without sidebar
+\end{description}
+
+\subsection{Pages}
+\begin{description}
+	\item[feed] serves as home, category and series page; uses main-layout
+	\item[read] shows a single article with its comments tree; uses main-layout
+	\item[user-profile] shows user profile public information; uses plain-layout
+	\item[user-profile-edit] a not-so-simple form; uses plain-layout
+	\item[admin] lets you edit blog title and such global variables; uses plain-layout
+\end{description}
+
+\section{Sidebar contents}
+\begin{enumerate}
+	\item research bar
+	\item user-status-component and user-login-logout-component
+	\item if connected user is an admin, link to create a new article
+	\item current category if one; uses category-component
+	\item available categories as a list plus “all”
+	\item current series if one; uses series-component
+	\item enabled tags
+	\item available tags
+	\item misc. filters (author, date)
+	\item article-meta-component if applicable
+	\item about blog: a special article
+\end{enumerate}
+
+\end{document}
