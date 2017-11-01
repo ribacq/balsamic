@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simple-schema';
+import SimpleSchema from 'simpl-schema';
 
-export const Comments = new Mongo.collection('comments');
+export const Comments = new Mongo.Collection('comments');
 
 Comments.deny({
 	insert() { return true; },
