@@ -1,5 +1,9 @@
 <template name="feedPage">
 	<div id="feed-page">
 		<h2>feed-page</h2>
+		{{#if error}}
+			<p>Sorry, this page does not exist.</p>
+		{{/if}}
+		<p>articles…</p>
 	</div>
 </template>

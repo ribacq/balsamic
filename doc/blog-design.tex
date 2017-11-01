@@ -21,33 +21,36 @@
 		\umlclass[x = 6, y = -9]{User}{
 			isAdmin : bool
 		}{}
-		\umlclass[x = 3, y = -3]{Content}{
+		\umlclass[x = 0, y = -3]{Comment}{
+			body : string\\
 			createdAt : date\\
 			editedAt : date\\
-			title : string\\
-			body : string
-		}{}
-		\umlclass[x = 0, y = -3]{Comment}{
-			%
+			inTrash : bool
 		}{}
 		\umlclass[x = 6, y = -3]{Article}{
+			title : string(128)\\
+			body : string\\
+			tags : string(32)[]\\
+			createdAt : date\\
+			editedAt : date\\
 			isListed : bool\\
 			isDraft : bool\\
-			tags : string[]
+			inTrash : bool
 		}{}
-		\umlnote[x = 6, y = 0, width = 6cm]{Article}{An unlisted article is still readable. A draft is not and forces isListed to false.}
+		\umlnote[x = 1, y = 0, width = 5.5cm]{Article}{An unlisted article is still readable.\\A draft is unlisted and unreadable.}
 		\umlclass[x = 12, y = 0]{Category}{
-			name : string[64]\\
-			description : string[512]
+			name : string(64)\\
+			description : string(512)
 		}{}
 		\umlclass[x = 12, y = -6]{Series}{
-			name : string[64]\\
-			description : string[512]
+			name : string(64)\\
+			description : string(512)
 		}{}
 
 		% Relations
-		\umlinherit{Article}{Content} % Article is a Content
-		\umlinherit{Comment}{Content} % Comment is a Content
+		\umluniassoc[mult1 = *, mult2 = 1, anchor1 = 0, name = comArt]{Comment}{Article} % Comment answers Article
+		\umluniassoc[mult1 = *, mult2 = 1, angle1 = -20, angle2 = -60, loopsize = 2cm, name = comCom]{Comment}{Comment} % Comment answers Comment
+		\umlassoc[stereo = XOR]{comArt-1}{comCom-1}
 
 		\umluniassoc[mult1 = *, attr2 = authors|1..*]{Article}{User} % Article has 1+ authors
 		\umlVHuniassoc[mult1 = *, attr2 = author|1]{Comment}{User} % Comment has 1 authors

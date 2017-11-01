@@ -16,45 +16,41 @@ import '/imports/ui/pages/admin-page';
 FlowRouter.route('/', {
 	name: 'feedPage',
 	action() {
-		BlazeLayout.render('mainLayout', {
-			content: 'feedPage'
-		});
+		BlazeLayout.render('mainLayout', { content: 'feedPage' });
 	}
 });
 
 FlowRouter.route('/read/:articleId', {
 	name: 'readPage',
 	action() {
-		BlazeLayout.render('mainLayout', {
-			content: 'readPage'
-		});
+		BlazeLayout.render('mainLayout', { content: 'readPage' });
 	}
 });
 
 FlowRouter.route('/user/:userId', {
 	name: 'userPage',
 	action() {
-		BlazeLayout.render('plainLayout', {
-			content: 'userPage'
-		});
+		BlazeLayout.render('plainLayout', { content: 'userPage' });
 	}
 });
 
-FlowRouter.route('/user-edit/:userId', {
+FlowRouter.route('/user/:userId/edit', {
 	name: 'userEditPage',
 	action() {
-		BlazeLayout.render('plainLayout', {
-			content: 'userEditPage'
-		});
+		BlazeLayout.render('plainLayout', { content: 'userEditPage' });
 	}
 });
 
 FlowRouter.route('/admin', {
 	name: 'adminPage',
 	action() {
-		BlazeLayout.render('plainLayout', {
-			content: 'adminPage'
-		});
+		BlazeLayout.render('plainLayout', { content: 'adminPage' });
 	}
 });
+
+FlowRouter.notFound = {
+	action() {
+		BlazeLayout.render('mainLayout', { content: 'feedPage' });
+	}
+};
 
