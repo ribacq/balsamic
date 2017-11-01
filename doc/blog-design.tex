@@ -21,7 +21,7 @@
 		\umlclass[x = 6, y = -9]{User}{
 			isAdmin : bool
 		}{}
-		\umlclass[x = 3, y = -4]{Content}{
+		\umlclass[x = 3, y = -3]{Content}{
 			createdAt : date\\
 			editedAt : date\\
 			title : string\\
@@ -72,7 +72,7 @@
 	\item[category-edit] a simple form
 	\item[series] shows name, description, number of member articles
 	\item[series-edit] a simple form
-	\item[user-login-logout] a simple form
+	\item[user-rtfm] manages user login, logout and register with forms
 	\item[user-status] shows name of connected user, links to profile
 \end{description}
 
@@ -86,8 +86,8 @@
 \begin{description}
 	\item[feed] serves as home, category and series page; uses main-layout
 	\item[read] shows a single article with its comments tree; uses main-layout
-	\item[user-profile] shows user profile public information; uses plain-layout
-	\item[user-profile-edit] a not-so-simple form; uses plain-layout
+	\item[user] shows user profile public information; uses plain-layout
+	\item[user-edit] a not-so-simple form; uses plain-layout
 	\item[admin] lets you edit blog title and such global variables; uses plain-layout
 \end{description}
 
