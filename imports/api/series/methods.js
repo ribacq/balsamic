@@ -26,11 +26,15 @@ Meteor.methods({
 	},
 	'series.remove'({ theSeriesId }) {
 		// remove all member articles
-		/*Articles.find({
+		Articles.find({
 			theSeries: theSeriesId
 		}).foreach(article => {
-			Articles.remove(article._id);
-		});*/
+			Articles.update(article._id, {
+				$unset: {
+					series: ''
+				}
+			});
+		});
 
 		// remove theSeries
 		Series.remove(theSeriesId);

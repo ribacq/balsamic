@@ -16,7 +16,7 @@ Articles.schema = new SimpleSchema({
 	},
 	title: {
 		type: String,
-		max: 128,
+		max: 140,
 		optional: false
 	},
 	body: {

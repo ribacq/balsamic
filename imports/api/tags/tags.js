@@ -1,30 +1,25 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-export const Categories = new Mongo.Collection('categories');
+export const Tags = new Mongo.Collection('tags');
 
-Categories.deny({
+Tags.deny({
 	insert() { return true; },
 	update() { return true; },
 	remove() { return true; }
 });
 
-Categories.schema = new SimpleSchema({
+Tags.schema = new SimpleSchema({
 	_id: {
 		type: String,
 		regEx: SimpleSchema.RegEx.Id,
 	},
 	name: {
 		type: String,
-		max: 140,
+		max: 42,
 		optional: false
-	},
-	description: {
-		type: String,
-		max: 420,
-		optional: false
-	},
+	}
 });
 
-Categories.attachSchema(Categories.schema);
+Tags.attachSchema(Tags.schema);
 

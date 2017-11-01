@@ -28,9 +28,8 @@
 			inTrash : bool
 		}{}
 		\umlclass[x = 6, y = -3]{Article}{
-			title : string(128)\\
+			title : string(140)\\
 			body : string\\
-			tags : string(32)[]\\
 			createdAt : date\\
 			editedAt : date\\
 			isListed : bool\\
@@ -39,24 +38,28 @@
 		}{}
 		\umlnote[x = 1, y = 0, width = 5.5cm]{Article}{An unlisted article is still readable.\\A draft is unlisted and unreadable.}
 		\umlclass[x = 12, y = 0]{Category}{
-			name : string(64)\\
-			description : string(512)
+			name : string(140)\\
+			description : string(420)
 		}{}
-		\umlclass[x = 12, y = -6]{Series}{
-			name : string(64)\\
-			description : string(512)
+		\umlclass[x = 12, y = -3]{Series}{
+			name : string(140)\\
+			description : string(420)
+		}{}
+		\umlclass[x = 12, y = -6]{Tag}{
+			name: string(42)
 		}{}
 
 		% Relations
 		\umluniassoc[mult1 = *, mult2 = 1, anchor1 = 0, name = comArt]{Comment}{Article} % Comment answers Article
 		\umluniassoc[mult1 = *, mult2 = 1, angle1 = -20, angle2 = -60, loopsize = 2cm, name = comCom]{Comment}{Comment} % Comment answers Comment
-		\umlassoc[stereo = XOR]{comArt-1}{comCom-1}
+		\umlassoc[stereo = XOR]{comArt-1}{comCom-1} % Comment answers Article XOR Comment
 
 		\umluniassoc[mult1 = *, attr2 = authors|1..*]{Article}{User} % Article has 1+ authors
 		\umlVHuniassoc[mult1 = *, attr2 = author|1]{Comment}{User} % Comment has 1 authors
 
 		\umluniassoc[mult1 = *, mult2 = 1]{Article}{Category} % Article is in 1 Category
 		\umluniassoc[mult1 = *, mult2 = 0..1]{Article}{Series} % Article is in 0 or 1 Series
+		\umluniassoc[mult1 = 1..*, mult2 = *]{Article}{Tag} % Article has 0+ Tag
 	\end{umlpackage}
 \end{tikzpicture}
 \caption{Packgage: \texttt{blog}}

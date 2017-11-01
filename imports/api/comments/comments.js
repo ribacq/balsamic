@@ -23,10 +23,15 @@ Comments.schema = new SimpleSchema({
 		regEx: SimpleSchema.RegEx.Id,
 		optional: false
 	},
-	answers: {
+	ofArticle: {
 		type: String,
 		regEx: SimpleSchema.RegEx.Id,
 		optional: false
+	},
+	ofComment: {
+		type: String,
+		regEx: SimpleSchema.RegEx.Id,
+		optional: true
 	},
 	createdAt: {
 		type: Date,

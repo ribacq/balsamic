@@ -26,11 +26,11 @@ Meteor.methods({
 	},
 	'categories.remove'({ categoryId }) {
 		// remove all member articles
-		/*Articles.find({
+		Articles.find({
 			category: categoryId
 		}).foreach(article => {
 			Articles.remove(article._id);
-		});*/
+		});
 
 		// remove category
 		Categories.remove(categoryId);

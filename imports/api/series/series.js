@@ -16,11 +16,13 @@ Series.schema = new SimpleSchema({
 	},
 	name: {
 		type: String,
-		max: 64,
+		max: 140,
+		optional: false
 	},
 	description: {
 		type: String,
-		max: 512,
+		max: 420,
+		optional: false
 	},
 });
 
