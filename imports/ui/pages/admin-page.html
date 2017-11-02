@@ -1,5 +1,46 @@
 <template name="adminPage">
 	<div id="admin-page">
 		<h2>admin-page</h2>
+
+		<h3>categories ({{categoriesCount}})</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>name</th>
+					<th>description</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each category in categories}}
+				<tr>
+					<td>{{category.name}}</td>
+					<td>{{category.description}}</td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+
+		<h3>series ({{seriesCount}})</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>name</th>
+					<th>description</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each theSeries in series}}
+				<tr>
+					<td>{{theSeries.name}}</td>
+					<td>{{theSeries.description}}</td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+
+		<h3>tags ({{tagsCount}})</h3>
+		{{#each tag in tags}}
+			{{> tagComponent tag}}
+		{{/each}}
 	</div>
 </template>

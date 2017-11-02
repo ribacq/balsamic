@@ -1,8 +1,11 @@
 <template name="mainLayout">
 	<div id="main-layout">
 		<h1>main-layout</h1>
+
+		{{> userRtfmComponent}}
+
+		<h2>menu</h2>
 		<nav>
-			<h2>menu</h2>
 			<ul>
 				<li><a href="/">feed</a></li>
 				<li><a href="/read/42">read/42</a></li>
@@ -11,14 +14,6 @@
 				<li><a href="/admin">admin</a></li>
 			</ul>
 		</nav>
-
-		{{> userRtfmComponent}}
-
-		<h2>Categories</h2>
-		{{#each category in categories}}
-			{{category}}
-			{{> categoryComponent category}}
-		{{/each}}
 
 		{{> Template.dynamic template=content}}
 	</div>

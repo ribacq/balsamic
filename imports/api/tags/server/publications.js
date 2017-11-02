@@ -5,3 +5,7 @@ Meteor.publish('tags', () => {
 	return Tags.find({});
 });
 
+if (!Tags.findOne({ name: 'recipe' })) {
+	Tags.insert({ name: 'recipe' });
+}
+
