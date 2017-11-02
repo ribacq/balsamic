@@ -17,7 +17,7 @@ Meteor.methods({
 			}
 		});
 	},
-	'series.udpateDescription'({ theSeriesId, newDescription }) {
+	'series.setDescription'({ theSeriesId, newDescription }) {
 		Series.update(theSeriesId, {
 			$set: {
 				description: newDescription

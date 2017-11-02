@@ -54,8 +54,10 @@
 		\umluniassoc[mult1 = *, mult2 = 1, angle1 = -20, angle2 = -60, loopsize = 2cm, name = comCom]{Comment}{Comment} % Comment answers Comment
 		\umlassoc[stereo = XOR]{comArt-1}{comCom-1} % Comment answers Article XOR Comment
 
-		\umluniassoc[mult1 = *, attr2 = authors|1..*]{Article}{User} % Article has 1+ authors
+		\umluniassoc[mult1 = *, attr2 = authors|1..*, anchors = -60 and 50]{Article}{User} % Article has 1+ authors
 		\umlVHuniassoc[mult1 = *, attr2 = author|1]{Comment}{User} % Comment has 1 authors
+
+		\umluniassoc[mult1 = *, attr2 = upvotes|*, anchors = -120 and 140]{Article}{User} % Article has * upvotes
 
 		\umluniassoc[mult1 = *, mult2 = 1]{Article}{Category} % Article is in 1 Category
 		\umluniassoc[mult1 = *, mult2 = 0..1]{Article}{Series} % Article is in 0 or 1 Series

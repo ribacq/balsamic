@@ -1,4 +1,10 @@
 div[class$="component"] {
-	border: 1px solid black;
+	border: 1px solid red;
+
+	&::before {
+		content: 'C';
+		color: red;
+		font-weight: bold;
+	}
 }
 

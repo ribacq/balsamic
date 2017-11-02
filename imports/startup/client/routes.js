@@ -30,27 +30,27 @@ FlowRouter.route('/read/:articleId', {
 FlowRouter.route('/user/:userId', {
 	name: 'userPage',
 	action() {
-		BlazeLayout.render('plainLayout', { content: 'userPage' });
+		BlazeLayout.render('mainLayout', { content: 'userPage' });
 	}
 });
 
 FlowRouter.route('/user/:userId/edit', {
 	name: 'userEditPage',
 	action() {
-		BlazeLayout.render('plainLayout', { content: 'userEditPage' });
+		BlazeLayout.render('mainLayout', { content: 'userEditPage' });
 	}
 });
 
 FlowRouter.route('/admin', {
 	name: 'adminPage',
 	action() {
-		BlazeLayout.render('plainLayout', { content: 'adminPage' });
+		BlazeLayout.render('mainLayout', { content: 'adminPage' });
 	}
 });
 
 FlowRouter.notFound = {
 	action() {
-		BlazeLayout.render('mainLayout', { content: 'feedPage' });
+		FlowRouter.go('/');
 	}
 };
 

@@ -3,11 +3,14 @@
 		<h2>admin-page</h2>
 
 		<h3>categories ({{categoriesCount}})</h3>
+		{{> categoryEditComponent editedCategory}}
 		<table>
 			<thead>
 				<tr>
 					<th>name</th>
 					<th>description</th>
+					<th>edit</th>
+					<th>delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -15,6 +18,8 @@
 				<tr>
 					<td>{{category.name}}</td>
 					<td>{{category.description}}</td>
+					<td><button class="category-table-edit" category-id="{{category._id}}">edit</button></td>
+					<td><button class="category-table-delete" category-id="{{category._id}}">delete</button></td>
 				</tr>
 			{{/each}}
 			</tbody>

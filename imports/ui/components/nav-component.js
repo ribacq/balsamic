@@ -1,0 +1,1 @@
+import './nav-component.html';

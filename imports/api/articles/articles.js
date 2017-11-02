@@ -49,6 +49,14 @@ Articles.schema = new SimpleSchema({
 		regEx: SimpleSchema.RegEx.Id,
 		optional: true
 	},
+	upvotes: {
+		type: Array,
+		optional: false
+	},
+	'upvotes.$': {
+		type: String,
+		regEx: SimpleSchema.RegEx.Id,
+	},
 	createdAt: {
 		type: Date,
 		autoValue() {

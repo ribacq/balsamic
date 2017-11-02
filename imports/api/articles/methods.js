@@ -108,6 +108,20 @@ Meteor.methods({
 			}
 		});
 	},
+	'articles.addVote'({ articleId, userId }) {
+		Articles.update(articleId, {
+			$addToSet: {
+				upvotes: userId
+			}
+		});
+	},
+	'articles.delVote'({ articleId, userId }) {
+		Articles.update(articleId, {
+			$pull: {
+				upvotes: userId
+			}
+		});
+	},
 	'articles.setListed'({ articleId }) {
 		Articles.update(articleId, {
 			$set: {
