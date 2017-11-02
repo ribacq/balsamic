@@ -28,3 +28,7 @@ Categories.schema = new SimpleSchema({
 
 Categories.attachSchema(Categories.schema);
 
+if (!Categories.findOne({ name: 'vinegar' })) {
+	Categories.insert({ name: 'vinegar', description: 'balsamic is cool.' });
+}
+
