@@ -1,6 +1,16 @@
 <template name="seriesEditComponent">
 	<div class="series-edit-component">
-		<h3>series-edit-component</h3>
+		<form class="series-form">
+			<fieldset>
+				<legend>series-edit-component</legend>
+				<label for="series-form-name">name</label>
+				<input type="text" name="series-form-name" id="series-form-name" max="140" value="{{name}}"><br>
+				<label for="series-form-description">description</label>
+				<textarea name="series-form-description" id="series-form-description" max="420">{{description}}</textarea><br>
+				<button type="submit">save</button>
+				<button type="reset" class="series-form-reset">clear</button>
+			</fieldset>
+		</form>
 	</div>
 </template>
 

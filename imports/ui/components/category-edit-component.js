@@ -1,33 +1,38 @@
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { Template } from 'meteor/templating';
 import { Categories } from '/imports/api/categories/categories';
 
 import './category-edit-component.html';
 
+Template.categoryEditComponent.helpers({
+	name() {
+		return Template.instance().data.get().name;
+	},
+	description() {
+		return Template.instance().data.get().description;
+	},
+});
+
 Template.categoryEditComponent.events({
 	'submit .category-form'(event, instance) {
 		event.preventDefault();
+		let usedID = Template.instance().data.get()._id;
 		let formName = event.target['category-form-name'].value;
 		let formDescription = event.target['category-form-description'].value;
 
-		if (!Categories.findOne({ _id: Template.instance().data._id })) {
-			Meteor.call('categories.insert', {
-				name: formName,
-				description: formDescription,
-			});
-		} else {
-			Meteor.call('categories.rename', {
-				categoryId: Template.instance().data._id,
-				newName: formName,
-			});
-			Meteor.call('categories.setDescription', {
-				categoryId: Template.instance().data._id,
-				newDescription: formDescription,
-			});
-		}
+		Meteor.call('categories.upsert', {
+			_id: usedID,
+			name: formName,
+			description: formDescription,
+		});
 
 		event.target['category-form-name'].value = '';
 		event.target['category-form-description'].value = '';
-	}
+		Template.instance().data.set({});
+	},
+	'click .category-form-reset'(event, instance) {
+		Template.instance().data.set({});
+	},
 });
 

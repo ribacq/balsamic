@@ -3,12 +3,15 @@ import { Categories } from './categories';
 import { Articles } from '../articles/articles';
 
 Meteor.methods({
-	'categories.insert'({ name, description }) {
-		if (!!Categories.findOne({ name })) {
-			throw new Meteor.Error('AlreadyExistingCategoryError', 'Category already exists.');
+	'categories.upsert'({ _id, name, description }) {
+		if (!!_id) {
+			Categories.update(_id, { $set: { name, description }});
+		} else {
+			if (!!Categories.findOne({ name })) {
+				throw new Meteor.Error('CategoryAlreadyExistsError', 'New name for category is already taken.');
+			}
+			Categories.insert({ name, description });
 		}
-
-		Categories.insert({ name, description });
 	},
 	'categories.rename'({ categoryId, newName }) {
 		Categories.update(categoryId, {

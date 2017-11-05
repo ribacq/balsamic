@@ -1,14 +1,17 @@
 import { Meteor } from 'meteor/meteor';
 import { Series } from './series';
+import { Articles } from '../articles/articles';
 
 Meteor.methods({
-	'series.insert'({ name, description }) {
-		const theSeries = {
-			name,
-			description
-		};
-
-		Series.insert(theSeries);
+	'series.upsert'({ _id, name, description }) {
+		if (!!_id) {
+			Series.update(_id, { $set: { name, description }});
+		} else {
+			if (!!Series.findOne({ name })) {
+				throw new Meteor.Error('SeriesAlreadyExistsError', 'New name for series is already taken.');
+			}
+			Series.insert({ name, description });
+		}
 	},
 	'series.rename'({ theSeriesId, newName }) {
 		Series.update(theSeriesId, {
@@ -28,7 +31,7 @@ Meteor.methods({
 		// remove all member articles
 		Articles.find({
 			theSeries: theSeriesId
-		}).foreach(article => {
+		}).forEach(article => {
 			Articles.update(article._id, {
 				$unset: {
 					series: ''

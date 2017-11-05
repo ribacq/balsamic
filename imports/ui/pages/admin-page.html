@@ -26,11 +26,14 @@
 		</table>
 
 		<h3>series ({{seriesCount}})</h3>
+		{{> seriesEditComponent editedSeries}}
 		<table>
 			<thead>
 				<tr>
 					<th>name</th>
 					<th>description</th>
+					<th>edit</th>
+					<th>delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -38,6 +41,8 @@
 				<tr>
 					<td>{{theSeries.name}}</td>
 					<td>{{theSeries.description}}</td>
+					<td><button class="series-table-edit" series-id="{{theSeries._id}}">edit</button></td>
+					<td><button class="series-table-delete" series-id="{{theSeries._id}}">delete</button></td>
 				</tr>
 			{{/each}}
 			</tbody>

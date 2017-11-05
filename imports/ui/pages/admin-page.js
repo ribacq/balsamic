@@ -7,6 +7,7 @@ import { Tags } from '/imports/api/tags/tags';
 
 import './admin-page.html';
 import '../components/category-edit-component';
+import '../components/series-edit-component';
 import '../components/tag-component';
 
 Template.adminPage.onCreated(function adminPageCreated() {
@@ -14,6 +15,7 @@ Template.adminPage.onCreated(function adminPageCreated() {
 		document.title = 'balsamic — admin';
 
 		this.editedCategoryRV = new ReactiveVar({});
+		this.editedSeriesRV = new ReactiveVar({});
 
 		this.subscribe('categories');
 		this.subscribe('series');
@@ -29,13 +31,16 @@ Template.adminPage.helpers({
 		return Categories.find().count();
 	},
 	editedCategory() {
-		return Template.instance().editedCategoryRV.get();
+		return Template.instance().editedCategoryRV;
 	},
 	series() {
 		return Series.find();
 	},
 	seriesCount() {
 		return Series.find().count();
+	},
+	editedSeries() {
+		return Template.instance().editedSeriesRV;
 	},
 	tags() {
 		return Tags.find();
@@ -51,6 +56,12 @@ Template.adminPage.events({
 	},
 	'click .category-table-delete'(event, instance) {
 		Meteor.call('categories.remove', { categoryId: event.target.getAttribute('category-id') });
+	},
+	'click .series-table-edit'(event, instance) {
+		instance.editedSeriesRV.set(Series.findOne({ _id: event.target.getAttribute('series-id') }));
+	},
+	'click .series-table-delete'(event, instance) {
+		Meteor.call('series.remove', { theSeriesId: event.target.getAttribute('series-id') });
 	},
 });
 
