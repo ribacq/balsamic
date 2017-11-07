@@ -31,7 +31,7 @@ Template.categoryEditComponent.events({
 		event.target['category-form-description'].value = '';
 		Template.instance().data.set({});
 	},
-	'click .category-form-reset'(event, instance) {
+	'reset .category-form'(event, instance) {
 		Template.instance().data.set({});
 	},
 });

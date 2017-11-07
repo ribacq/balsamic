@@ -7,7 +7,7 @@ import '/imports/api/comments/methods';
 import '/imports/api/comments/server/publications';
 
 // tags
-import '/imports/api/tags/tags';
+import '/imports/api/tags/methods';
 import '/imports/api/tags/server/publications';
 
 // categories

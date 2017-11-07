@@ -3,12 +3,10 @@
 		<form class="category-form">
 			<fieldset>
 				<legend>category-edit-component</legend>
-				<label for="category-form-name">name</label>
-				<input type="text" name="category-form-name" id="category-form-name" max="140" value="{{name}}"><br>
-				<label for="category-form-description">description</label>
-				<textarea name="category-form-description" id="category-form-description" max="420">{{description}}</textarea><br>
+				<input type="text" name="category-form-name" max="140" placeholder="name" value="{{name}}"><br>
+				<textarea name="category-form-description" max="420" placeholder="description">{{description}}</textarea><br>
 				<button type="submit">save</button>
-				<button type="reset" class="category-form-reset">clear</button>
+				<button type="reset">clear</button>
 			</fieldset>
 		</form>
 	</div>

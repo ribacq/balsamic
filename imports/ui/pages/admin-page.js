@@ -8,7 +8,7 @@ import { Tags } from '/imports/api/tags/tags';
 import './admin-page.html';
 import '../components/category-edit-component';
 import '../components/series-edit-component';
-import '../components/tag-component';
+import '../components/tag-edit-component';
 
 Template.adminPage.onCreated(function adminPageCreated() {
 	this.autorun(() => {
@@ -16,6 +16,7 @@ Template.adminPage.onCreated(function adminPageCreated() {
 
 		this.editedCategoryRV = new ReactiveVar({});
 		this.editedSeriesRV = new ReactiveVar({});
+		this.editedTagRV = new ReactiveVar({});
 
 		this.subscribe('categories');
 		this.subscribe('series');
@@ -48,20 +49,29 @@ Template.adminPage.helpers({
 	tagsCount() {
 		return Tags.find().count();
 	},
+	editedTag() {
+		return Template.instance().editedTagRV;
+	},
 });
 
 Template.adminPage.events({
 	'click .category-table-edit'(event, instance) {
-		instance.editedCategoryRV.set(Categories.findOne({ _id: event.target.getAttribute('category-id') }));
+		instance.editedCategoryRV.set(Categories.findOne({ _id: event.target.parentNode.parentNode.getAttribute('category-id') }));
 	},
 	'click .category-table-delete'(event, instance) {
-		Meteor.call('categories.remove', { categoryId: event.target.getAttribute('category-id') });
+		Meteor.call('categories.remove', { categoryId: event.target.parentNode.parentNode.getAttribute('category-id') });
 	},
 	'click .series-table-edit'(event, instance) {
-		instance.editedSeriesRV.set(Series.findOne({ _id: event.target.getAttribute('series-id') }));
+		instance.editedSeriesRV.set(Series.findOne({ _id: event.target.parentNode.parentNode.getAttribute('series-id') }));
 	},
 	'click .series-table-delete'(event, instance) {
-		Meteor.call('series.remove', { theSeriesId: event.target.getAttribute('series-id') });
+		Meteor.call('series.remove', { theSeriesId: event.target.parentNode.parentNode.getAttribute('series-id') });
+	},
+	'click .tag-table-edit'(event, instance) {
+		instance.editedTagRV.set(Tags.findOne({ _id: event.target.parentNode.parentNode.getAttribute('tag-id') }));
+	},
+	'click .tag-table-delete'(event, instance) {
+		Meteor.call('tags.remove', { tagId: event.target.parentNode.parentNode.getAttribute('tag-id') });
 	},
 });
 

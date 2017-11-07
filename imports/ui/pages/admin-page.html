@@ -15,11 +15,11 @@
 			</thead>
 			<tbody>
 			{{#each category in categories}}
-				<tr>
+				<tr category-id="{{category._id}}">
 					<td>{{category.name}}</td>
 					<td>{{category.description}}</td>
-					<td><button class="category-table-edit" category-id="{{category._id}}">edit</button></td>
-					<td><button class="category-table-delete" category-id="{{category._id}}">delete</button></td>
+					<td><button class="category-table-edit">edit</button></td>
+					<td><button class="category-table-delete">delete</button></td>
 				</tr>
 			{{/each}}
 			</tbody>
@@ -38,19 +38,35 @@
 			</thead>
 			<tbody>
 			{{#each theSeries in series}}
-				<tr>
+				<tr series-id="{{theSeries._id}}">
 					<td>{{theSeries.name}}</td>
 					<td>{{theSeries.description}}</td>
-					<td><button class="series-table-edit" series-id="{{theSeries._id}}">edit</button></td>
-					<td><button class="series-table-delete" series-id="{{theSeries._id}}">delete</button></td>
+					<td><button class="series-table-edit">edit</button></td>
+					<td><button class="series-table-delete">delete</button></td>
 				</tr>
 			{{/each}}
 			</tbody>
 		</table>
 
 		<h3>tags ({{tagsCount}})</h3>
-		{{#each tag in tags}}
-			{{> tagComponent tag}}
-		{{/each}}
+		{{> tagEditComponent editedTag}}
+		<table>
+			<thead>
+				<tr>
+					<th>name</th>
+					<th>edit</th>
+					<th>delete</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each tag in tags}}
+				<tr tag-id="{{tag._id}}">
+					<td>{{tag.name}}</td>
+					<td><button class="tag-table-edit">edit</button></td>
+					<td><button class="tag-table-delete">delete</button></td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
 	</div>
 </template>

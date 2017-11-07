@@ -4,6 +4,10 @@ import { Articles } from '../articles/articles';
 
 Meteor.methods({
 	'series.upsert'({ _id, name, description }) {
+		if (!name || !description) {
+			throw new Meteor.Error('NoNameOrDescriptionForSeriesError', 'No name or no description provided for series.');
+		}
+
 		if (!!_id) {
 			Series.update(_id, { $set: { name, description }});
 		} else {
@@ -12,20 +16,6 @@ Meteor.methods({
 			}
 			Series.insert({ name, description });
 		}
-	},
-	'series.rename'({ theSeriesId, newName }) {
-		Series.update(theSeriesId, {
-			$set: {
-				name: newName
-			}
-		});
-	},
-	'series.setDescription'({ theSeriesId, newDescription }) {
-		Series.update(theSeriesId, {
-			$set: {
-				description: newDescription
-			}
-		});
 	},
 	'series.remove'({ theSeriesId }) {
 		// remove all member articles

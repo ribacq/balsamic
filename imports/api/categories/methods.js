@@ -4,6 +4,10 @@ import { Articles } from '../articles/articles';
 
 Meteor.methods({
 	'categories.upsert'({ _id, name, description }) {
+		if (!name || !description) {
+			throw new Meteor.Error('NoNameOrDescriptionForCategoryError', 'No name or no description provided for category.');
+		}
+
 		if (!!_id) {
 			Categories.update(_id, { $set: { name, description }});
 		} else {
@@ -12,20 +16,6 @@ Meteor.methods({
 			}
 			Categories.insert({ name, description });
 		}
-	},
-	'categories.rename'({ categoryId, newName }) {
-		Categories.update(categoryId, {
-			$set: {
-				name: newName
-			}
-		});
-	},
-	'categories.setDescription'({ categoryId, newDescription }) {
-		Categories.update(categoryId, {
-			$set: {
-				description: newDescription
-			}
-		});
 	},
 	'categories.remove'({ categoryId }) {
 		// remove all member articles
