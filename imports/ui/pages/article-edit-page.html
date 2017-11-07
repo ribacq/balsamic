@@ -1,0 +1,12 @@
+<template name="articleEditPage">
+	<div id="article-edit-page">
+		<h2>article-edit-page</h2>
+		{{#if isNewArticle}}
+			<p>new article</p>
+		{{else}}
+			<p>editing {{_id}}</p>
+		{{/if}}
+		{{> articleEditComponent}}
+	</div>
+</template>
+
