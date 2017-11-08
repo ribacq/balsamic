@@ -98,13 +98,28 @@ Template.articleEditComponent.events({
 			// article update
 			let articleId = instance.data.articleId;
 			Meteor.call('articles.setTitle', { articleId, newTitle: formData.title });
+			Meteor.call('articles.setBody', { articleId, newBody: formData.body });
+			if (formData.isListed) {
+				Meteor.call('articles.setListed', { articleId });
+			} else {
+				Meteor.call('articles.setUnlisted', { articleId });
+			}
+			if (formData.isDraft) {
+				Meteor.call('articles.setDraft', { articleId });
+			} else {
+				Meteor.call('articles.setPublished', { articleId });
+			}
+
+			//redirect to the article
+			FlowRouter.go('/read/' + articleId);
 		} else {
 			// new article
-			Meteor.call('articles.insert', formData);
+			Meteor.call('articles.insert', formData, (error, articleId) => {
+				if (!error) {
+					FlowRouter.go('/read/' + articleId);
+				}
+			});
 		}
-
-		// clear form
-		event.target.reset();
 	},
 	'click .article-form-remove'(event, instance) {
 		if (instance.data.articleId !== undefined) {

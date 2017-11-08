@@ -37,20 +37,26 @@ Meteor.methods({
 			isDraft
 		};
 
-		Articles.insert(article);
+		return Articles.insert(article);
 	},
 	'articles.setTitle'({ articleId, newTitle }) {
 		Articles.update(articleId, {
 			$set: {
 				title: newTitle
-			}
+			},
+			$setOnInsert: {
+				title: newTitle
+			},
 		});
 	},
 	'articles.setBody'({ articleId, newBody }) {
 		Articles.update(articleId, {
 			$set: {
 				body: newBody
-			}
+			},
+			$setOnInsert: {
+				body: newBody
+			},
 		});
 	},
 	'articles.addAuthor'({ articleId, userId }) {
@@ -93,7 +99,10 @@ Meteor.methods({
 		Articles.update(articleId, {
 			$set: {
 				category
-			}
+			},
+			$setOnInsert: {
+				category
+			},
 		});
 	},
 	'articles.setSeries'({ articleId, series }) {
@@ -104,7 +113,10 @@ Meteor.methods({
 		Articles.update(articleId, {
 			$set: {
 				series
-			}
+			},
+			$setOnInsert: {
+				series
+			},
 		});
 	},
 	'articles.unsetSeries'({ articleId }) {
@@ -132,28 +144,40 @@ Meteor.methods({
 		Articles.update(articleId, {
 			$set: {
 				isListed: true
-			}
+			},
+			$setOnInsert: {
+				isListed: true
+			},
 		});
 	},
 	'articles.setUnlisted'({ articleId }) {
 		Articles.update(articleId, {
 			$set: {
 				isListed: false
-			}
+			},
+			$setOnInsert: {
+				isListed: false
+			},
 		});
 	},
 	'articles.setDraft'({ articleId }) {
 		Articles.update(articleId, {
 			$set: {
 				isDraft: true
-			}
+			},
+			$setOnInsert: {
+				isDraft: true
+			},
 		});
 	},
 	'articles.setPublished'({ articleId }) {
 		Articles.update(articleId, {
 			$set: {
 				isDraft: false
-			}
+			},
+			$setOnInsert: {
+				isDraft: false
+			},
 		});
 	},
 	'articles.remove'({ articleId }) {
