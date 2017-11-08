@@ -5,3 +5,7 @@ Meteor.publish('series', () => {
 	return Series.find({});
 });
 
+Meteor.publish('series.one', (seriesId) => {
+	return Series.find({ _id: seriesId });
+});
+

@@ -27,8 +27,7 @@ Template.seriesEditComponent.events({
 			description: formDescription,
 		});
 
-		event.target['series-form-name'].value = '';
-		event.target['series-form-description'].value = '';
+		event.target.reset();
 		Template.instance().data.set({});
 	},
 	'reset .series-form'(event, instance) {

@@ -1,6 +1,32 @@
 <template name="articleMetaComponent">
 	<div class="article-meta-component">
 		<h3>article-meta-component</h3>
+		<ul>
+			<li><em>authors:</em>
+				<ul>
+				{{#each author in authors}}
+					<li>{{author.username}}</li>
+				{{/each}}
+				</ul>
+			</li>
+			<li><em>category:</em> {{category.name}}</li>
+			{{#if hasSeries}}
+				<li><em>series:</em> {{series.name}}</li>
+			{{/if}}
+			<li><em>tags:</em>
+				<ul>
+				{{#each tag in tags}}
+					<li>{{tag.name}}</li>
+				{{/each}}
+				</ul>
+			</li>
+			<li><em>upvotes:</em> {{upvotes.length}}</li>
+			<li><em>createdAt:</em> {{createdAt}}</li>
+			<li><em>editedAt:</em> {{editedAt}}</li>
+			<li><em>isListed:</em> {{isListed}}</li>
+			<li><em>isDraft:</em> {{isDraft}}</li>
+			<li><a href="/admin/edit/{{_id}}">edit</a></li>
+		</ul>
 	</div>
 </template>
 

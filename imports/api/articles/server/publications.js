@@ -23,7 +23,7 @@ Meteor.publish('articles', (tags, category, series, n) => {
 	return Articles.find(filters, conditions);
 });
 
-Meteor.publish('article', (articleId) => {
+Meteor.publish('articles.one', (articleId) => {
 	return Articles.find({ _id: articleId });
 });
 

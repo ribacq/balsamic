@@ -4,6 +4,9 @@
 		{{#if error}}
 			<p>Sorry, this page does not exist.</p>
 		{{/if}}
-		<p>articles…</p>
+		{{#each article in articles}}
+			{{> articleShortComponent article}}
+			<hr>
+		{{/each}}
 	</div>
 </template>

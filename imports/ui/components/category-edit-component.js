@@ -27,8 +27,7 @@ Template.categoryEditComponent.events({
 			description: formDescription,
 		});
 
-		event.target['category-form-name'].value = '';
-		event.target['category-form-description'].value = '';
+		event.target.reset();
 		Template.instance().data.set({});
 	},
 	'reset .category-form'(event, instance) {

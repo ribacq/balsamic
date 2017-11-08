@@ -7,12 +7,12 @@ import { Series } from '../series/series';
 Meteor.methods({
 	'articles.insert'({ title, body, authors, tags, category, series, isListed, isDraft }) {
 		// check authors id
-		if ((authors.length < 1) || (Meteor.users.find({ _id: { $in: authors }}).count() !== authors.length)) {
+		if ((!authors) || (authors.length < 1) || (Meteor.users.find({ _id: { $in: authors }}).count() !== authors.length)) {
 			throw new Meteor.Error('UndefinedUserError', 'Undefined or no authors given for new article');
 		}
 
 		// check category id
-		if (!Category.findOne({ _id: category })) {
+		if (!Categories.findOne({ _id: category })) {
 			throw new Meteor.Error('UndefinedCategoryError', 'Undefined category given for new article');
 		}
 
@@ -21,9 +21,15 @@ Meteor.methods({
 			throw new Meteor.Error('UndefinedSeriesError', 'Undefined series given for new article');
 		}
 
+		// check empty or repeated title
+		if (!title || !!Articles.findOne({ title })) {
+			throw new Meteor.Error('BadTitleError', 'Empty or already existing title for new article');
+		}
+
 		const article = {
 			title,
 			body,
+			authors,
 			tags,
 			category,
 			series,

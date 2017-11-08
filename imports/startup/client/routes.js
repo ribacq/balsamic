@@ -12,7 +12,7 @@ import '/imports/ui/pages/admin-page';
 import '/imports/ui/pages/article-edit-page';
 
 // routes
-FlowRouter.route('/', {
+FlowRouter.route(['/', '/feed'], {
 	name: 'feedPage',
 	action() {
 		BlazeLayout.render('mainLayout', { content: 'feedPage' });

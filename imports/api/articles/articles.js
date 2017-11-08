@@ -51,7 +51,7 @@ Articles.schema = new SimpleSchema({
 	},
 	upvotes: {
 		type: Array,
-		optional: false
+		optional: true
 	},
 	'upvotes.$': {
 		type: String,
