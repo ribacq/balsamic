@@ -157,18 +157,7 @@ Meteor.methods({
 		});
 	},
 	'articles.remove'({ articleId }) {
-		Articles.update(articleId, {
-			$set: {
-				inTrash: true
-			}
-		});
+		Articles.remove(articleId);
 	},
-	'articles.restore'({ articleId }) {
-		Articles.update(articleId, {
-			$set: {
-				inTrash: false
-			}
-		});
-	}
 });
 

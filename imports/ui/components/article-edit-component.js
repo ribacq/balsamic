@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Template } from 'meteor/templating';
 import { Articles } from '/imports/api/articles/articles';
 import { Categories } from '/imports/api/categories/categories';
@@ -61,6 +62,9 @@ Template.articleEditComponent.helpers({
 		}
 		return '';
 	},
+	isEdition() {
+		return Template.instance().data.articleId !== undefined;
+	},
 });
 
 Template.articleEditComponent.events({
@@ -101,6 +105,12 @@ Template.articleEditComponent.events({
 
 		// clear form
 		event.target.reset();
-	}
+	},
+	'click .article-form-remove'(event, instance) {
+		if (instance.data.articleId !== undefined) {
+			Meteor.call('articles.remove', { articleId: instance.data.articleId });
+			FlowRouter.go('/feed');
+		}
+	},
 });
 

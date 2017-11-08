@@ -95,19 +95,6 @@ Articles.schema = new SimpleSchema({
 		},
 		optional: false
 	},
-	inTrash: {
-		type: Boolean,
-		autoValue() {
-			if (this.isInsert) {
-				return false;
-			} else if (this.isUpsert) {
-				return { $setOnInsert: { inTrash: false } };
-			} else {
-				this.unset();
-			}
-		},
-		optional: false
-	}
 });
 
 Articles.attachSchema(Articles.schema);
