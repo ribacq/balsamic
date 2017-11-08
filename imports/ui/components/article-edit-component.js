@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { Articles } from '/imports/api/articles/articles';
 import { Categories } from '/imports/api/categories/categories';
 import { Series } from '/imports/api/series/series';
 import { Tags } from '/imports/api/tags/tags';
@@ -7,7 +8,10 @@ import { Tags } from '/imports/api/tags/tags';
 import './article-edit-component.html';
 
 Template.articleEditComponent.onCreated(function articleEditComponentCreated() {
+	this.getArticleId = () => Template.instance().data.articleId;
+
 	this.autorun(() => {
+		this.subscribe('articles.one', this.getArticleId());
 		this.subscribe('categories');
 		this.subscribe('series');
 		this.subscribe('tags');
@@ -15,6 +19,9 @@ Template.articleEditComponent.onCreated(function articleEditComponentCreated() {
 });
 
 Template.articleEditComponent.helpers({
+	article() {
+		return Articles.findOne({ _id: Template.instance().data.articleId });
+	},
 	categories() {
 		return Categories.find();
 	},
@@ -24,12 +31,43 @@ Template.articleEditComponent.helpers({
 	tags() {
 		return Tags.find();
 	},
+	selectedCategory(categoryId) {
+		if ((Template.instance().data.articleId !== undefined) && (categoryId === Articles.findOne({ _id: Template.instance().data.articleId }).category)) {
+			return 'selected';
+		}
+		return '';
+	},
+	selectedSeries(seriesId) {
+		if ((Template.instance().data.articleId !== undefined) && (seriesId === Articles.findOne({ _id: Template.instance().data.articleId }).series)) {
+			return 'selected';
+		}
+		return '';
+	},
+	checkedTag(tagId) {
+		if ((Template.instance().data.articleId !== undefined) && (Articles.findOne({ _id: Template.instance().data.articleId }).tags.indexOf(tagId) !== -1)) {
+			return 'checked';
+		}
+		return '';
+	},
+	isListedChecked() {
+		if (Template.instance().data.articleId !== undefined) {
+			return (Articles.findOne({ _id: Template.instance().data.articleId }).isListed) ? 'checked' : '';
+		}
+		return 'checked';
+	},
+	isDraftChecked() {
+		if (Template.instance().data.articleId !== undefined) {
+			return (Articles.findOne({ _id: Template.instance().data.articleId }).isDraft) ? 'checked' : '';
+		}
+		return '';
+	},
 });
 
 Template.articleEditComponent.events({
 	'submit .article-form'(event, instance) {
 		event.preventDefault();
 
+		// get article data from form
 		let formData = {
 			title: event.target['article-form-title'].value,
 			authors: [Meteor.userId()],
@@ -52,7 +90,16 @@ Template.articleEditComponent.events({
 			delete formData.series;
 		}
 
-		Meteor.call('articles.insert', formData);
+		if (instance.data.articleId !== undefined) {
+			// article update
+			let articleId = instance.data.articleId;
+			Meteor.call('articles.setTitle', { articleId, newTitle: formData.title });
+		} else {
+			// new article
+			Meteor.call('articles.insert', formData);
+		}
+
+		// clear form
 		event.target.reset();
 	}
 });

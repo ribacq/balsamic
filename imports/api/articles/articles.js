@@ -63,7 +63,7 @@ Articles.schema = new SimpleSchema({
 			if (this.isInsert) {
 				return new Date();
 			} else if (this.isUpsert) {
-				return { $setonInsert: new Date() };
+				return { $setOnInsert: { createdAt: new Date() } };
 			} else {
 				this.unset();
 			}
@@ -83,14 +83,14 @@ Articles.schema = new SimpleSchema({
 	},
 	isListed: {
 		type: Boolean,
-		autoValue() {
+		defaultValue() {
 			return true;
 		},
 		optional: false
 	},
 	isDraft: {
 		type: Boolean,
-		autoValue() {
+		defaultValue() {
 			return false;
 		},
 		optional: false
@@ -98,7 +98,13 @@ Articles.schema = new SimpleSchema({
 	inTrash: {
 		type: Boolean,
 		autoValue() {
-			return false;
+			if (this.isInsert) {
+				return false;
+			} else if (this.isUpsert) {
+				return { $setOnInsert: { inTrash: false } };
+			} else {
+				this.unset();
+			}
 		},
 		optional: false
 	}

@@ -21,3 +21,19 @@ label {
 	min-width: 200px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	&::before {
+		font-size: 0.8;
+		color: #444;
+	}
+	&:hover {
+		background: #ccc;
+	}
+}
+h1::before { content: '# '; }
+h2::before { content: '## '; }
+h3::before { content: '### '; }
+h4::before { content: '#### '; }
+h5::before { content: '##### '; }
+h6::before { content: '###### '; }
+

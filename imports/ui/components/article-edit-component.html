@@ -5,16 +5,16 @@
 				<legend>article-edit-component</legend>
 				
 				<label for="article-form-title">title</label>
-				<input type="text" name="article-form-title" id="article-form-name" max="140">
+				<input type="text" name="article-form-title" id="article-form-name" max="140" value="{{article.title}}">
 				<br>
 
-				<p>author: {{currentUser._id}}</p>
+				<p>author: ({{article.authors.length}}) {{currentUser._id}}</p>
 				<br>
 
 				<label for="article-form-category">category</label>
 				<select name="article-form-category" id="article-form-categories">
 				{{#each category in categories}}
-					<option value="{{category._id}}">{{category.name}}</option>
+					<option value="{{category._id}}" {{selectedCategory category._id}}>{{category.name}}</option>
 				{{/each}}
 				</select>
 				<br>
@@ -23,7 +23,7 @@
 				<select name="article-form-series" id="article-form-series">
 					<option value="0">none</option>
 				{{#each theSeries in series}}
-					<option value="{{theSeries._id}}">{{theSeries.name}}</option>
+					<option value="{{theSeries._id}}" {{selectedSeries theSeries._id}}>{{theSeries.name}}</option>
 				{{/each}}
 				</select>
 				<br>
@@ -32,21 +32,21 @@
 					<legend>tags</legend>
 					{{#each tag in tags}}
 						<label for="article-form-tags-{{tag._id}}">{{tag.name}}</label>
-						<input type="checkbox" name="article-form-tags" value="{{tag._id}}" id="article-form-tags-{{tag._id}}">
+						<input type="checkbox" name="article-form-tags" value="{{tag._id}}" id="article-form-tags-{{tag._id}}" {{checkedTag tag._id}}>
 						<br>
 					{{/each}}
 				</fieldset>
 
 				<label for="article-form-is-listed">listed</label>
-				<input type="checkbox" name="article-form-is-listed" id="article-form-is-listed" checked>
+				<input type="checkbox" name="article-form-is-listed" id="article-form-is-listed" {{isListedChecked}}>
 				<br>
 
 				<label for="article-form-is-draft">draft</label>
-				<input type="checkbox" name="article-form-is-draft" id="article-form-is-draft">
+				<input type="checkbox" name="article-form-is-draft" id="article-form-is-draft" {{isDraftChecked}}>
 				<br>
 
 				<label for="article-form-body">body</label>
-				<textarea name="article-form-body" id="article-form-body"></textarea>
+				<textarea name="article-form-body" id="article-form-body">{{article.body}}</textarea>
 				<br>
 
 				<button type="submit">submit</button>

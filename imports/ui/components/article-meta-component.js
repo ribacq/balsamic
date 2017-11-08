@@ -4,6 +4,7 @@ import { Series } from '/imports/api/series/series';
 import { Tags } from '/imports/api/tags/tags';
 
 import './article-meta-component.html';
+import './tag-component';
 
 Template.articleMetaComponent.onCreated(function articleMetaComponentCreated() {
 	this.getCategoryId = () => Template.instance().data.category;
@@ -33,11 +34,8 @@ Template.articleMetaComponent.helpers({
 	authors() {
 		return Meteor.users.find({ _id: { $in: Template.instance().data.authors }});
 	},
-	isListed() {
-		return !!Template.instance().data.isListed ? 'yes' : 'no';
-	},
-	isDraft() {
-		return !!Template.instance().data.isDraft ? 'yes' : 'no';
+	createdAt() {
+		return Template.instance().data.createdAt.toLocaleString();
 	},
 });
 
