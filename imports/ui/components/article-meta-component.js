@@ -33,5 +33,11 @@ Template.articleMetaComponent.helpers({
 	authors() {
 		return Meteor.users.find({ _id: { $in: Template.instance().data.authors }});
 	},
+	isListed() {
+		return !!Template.instance().data.isListed ? 'yes' : 'no';
+	},
+	isDraft() {
+		return !!Template.instance().data.isDraft ? 'yes' : 'no';
+	},
 });
 
